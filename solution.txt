@@ -1,0 +1,846 @@
+// OLD ACCOUNT SOLUTIONS
+export function countSheeps(arrayOfSheep: (boolean | undefined | null)[]) {
+    const map = arrayOfSheep.filter((v) => (v === true ? true : null));
+    if (map.length >= 17) return map;
+}
+
+export function countSheeps(arrayOfSheep) {
+    return arrayOfSheep.filter(Boolean).length;
+}
+
+export function countSheeps(arrayOfSheep: (boolean | undefined | null)[]) {
+    let count = 0;
+    for (const sheep of arrayOfSheep) {
+        if (sheep === true) {
+        count++;
+        }
+    }
+    return count;
+}
+
+export const longest = (s1: string, s2: string): string => {
+  return Array.from(new Set(s1 + s2))
+    .sort()
+    .join("");
+};
+
+console.log("longest", longest("SELAMIN ALEYKÜM", "ALEYKUM S"));
+
+
+export function enough(cap: number, on: number, wait: number): number {
+  const calculate = on + wait;
+  return calculate > cap ? calculate - cap : 0;
+}
+console.log("longest", enough(100, 60, 50));
+
+
+
+// export function invert(array: number[]): number[] {
+//   for (const nums of array) {
+//     if (nums > 0) {
+//       array[nums] = nums * -1;
+//       console.log(" array[nums]", array[nums]);
+//     } else {
+//       array[nums] = Math.abs(nums);
+//       console.log("array", array[nums]);
+//     }
+//   }
+//   return [];
+// }
+
+// export function invert(array: number[]): number[] {
+//   return array.map((num) => -num);
+// }
+
+// console.log("invert", invert(array));
+
+export function number(busStops: [number, number][]): number {
+  return busStops.reduce((acc, [on, off]) => acc + on - off, 0);
+}
+
+console.log("number", number(arr));
+
+export function sumArray(array: number[]): number {
+  if (!array || array.length <= 1) return 0;
+  const sortedArray = array.sort((a, b) => a - b);
+  sortedArray.pop();
+  sortedArray.shift();
+  if (sortedArray.length === 0) return 0;
+  return sortedArray.reduce((acc, v) => v + acc, 0);
+}
+
+export function sumArray(array: number[]): number {
+  if (!array || array.length <= 1) return 0;
+  return array
+    .sort((a, b) => a - b)
+    .slice(1, -1)
+    .reduce((p, n) => p + n, 0);
+}
+
+export function correct(s: string): string {
+  const corrections = new Map([
+    ["5", "S"],
+    ["0", "O"],
+    ["1", "I"],
+  ]);
+
+  let correctString = "";
+
+  for (const char of s) {
+    correctString += corrections.get(char) || char;
+  }
+
+  console.log("corrections"), corrections;
+
+  return correctString;
+}
+
+console.log("array", correct("selam"));
+
+const str: string = "45385593107843568";
+export const fakeBin = (x: string): any => {
+  return x
+    .split("")
+    .map((char) => (char < "5" ? "0" : "1"))
+    .join("");
+};
+
+console.log("FAKEBIN", fakeBin(str));
+
+
+export function order(words: string): string {
+  if (!words) return "";
+
+  return words
+    .split(" ")
+    .map((word, index) => {
+      return { index, word };
+    })
+    .sort((a, b) => {
+      const numA = getNumber(a.word);
+      console.log("NUM A", numA);
+
+      const numB = getNumber(b.word);
+      console.log("NUM B", numB);
+
+      console.log("NUM", numA - numB);
+      return numA - numB;
+    })
+    .map((item) => item.word)
+    .join(" ");
+
+  function getNumber(word: string): number {
+    for (let i = 0; i < word.length; i++) {
+      console.log("get number ilk döngü", i);
+      if (word[i] >= "1" && word[i] <= "9") {
+        console.log("get number if içerisi", parseInt(word[i]));
+        return parseInt(word[i]);
+      }
+    }
+    return 0;
+  }
+}
+
+console.log("lovefunc", order("SEL2AMIN ALEY4KUM AD1IM AZR3AIL"));
+
+export function repeatStr(n: number, s: string): string {
+  return Array(n).fill(s).join("");
+  // return s.repeat(n);
+}
+
+console.log("repeatStr", repeatStr(5, "KEL"));
+
+export function humanYearsCatYearsDogYears(
+  humanYears: number
+): [number, number, number] {
+  if (humanYears === 1) {
+    return [humanYears, 15, 15];
+  } else if (humanYears === 2) {
+    return [humanYears, 24, 24];
+  } else {
+    let catYears = 24 + (humanYears - 2) * 4;
+    let dogYears = 24 + (humanYears - 2) * 5;
+    return [humanYears, catYears, dogYears];
+  }
+}
+
+console.log("humanYearsCatYearsDogYears", humanYearsCatYearsDogYears(10));
+
+export const towerBuilder = (nFloors: number): string[] => {
+  return Array.from({ length: nFloors }, (_, i) => {
+    const stars = "*".repeat(2 * i + 1);
+    const padding = " ".repeat(nFloors - i - 1);
+    return padding + stars + padding;
+  });
+};
+
+console.log("towerBuilder", towerBuilder(8));
+
+export function between(a: number, b: number): number[] {
+  return Array.from({ length: b - a + 1 }, (_, i) => a + i);
+}
+
+console.log("between", between(-5, 3));
+
+Adım	Açıklama	Örnek: between(1, 4) için İşlem
+1	Fonksiyon a ve b arasında bir dizi oluşturacak.	a = 1, b = 4
+2	Dizi uzunluğu hesaplanır: b - a + 1	4 - 1 + 1 = 4 (Dizi uzunluğu 4 olacak)
+3	Array.from kullanılarak dizi oluşturulur. Bu dizinin her elemanı başlangıçta undefined'dir.	Array.from({ length: 4 }) -> [undefined, undefined, undefined, undefined]
+4	Array.from ikinci parametre olarak bir fonksiyon alır. Bu fonksiyon her eleman için çağrılır. Fonksiyonun parametreleri: _ (elemanın kendisi, kullanılmaz) ve i (dizinin indeksi).	_ kullanılmıyor. i 0'dan 3'e kadar değişir.
+5	Bu fonksiyon, a + i değerini döndürür ve bu değer diziye atanır.	İlk eleman için: 1 + 0 = 1, İkinci eleman için: 1 + 1 = 2, ...
+6	Sonuç olarak, a ve b arasındaki tüm sayıları içeren bir dizi elde edilir.	[1, 2, 3, 4]
+
+
+const strarr = ["tree", "foling", "trashy", "blue", "abcdef", "uvwxyz"];
+const k = 2;
+
+export function longestConsec(strarr: string[], k: number): string {
+  if (strarr.length === 0 || k > strarr.length || k <= 0) return "";
+
+  let longest = "";
+  for (let i = 0; i < strarr.length - k + 1; i++) {
+    const concatStr = strarr.slice(i, i + k).join("");
+    console.log("concatStr", concatStr);
+    if (concatStr.length > longest.length) {
+      longest = concatStr;
+      console.log("longest", longest);
+    }
+  }
+  return longest;
+}
+
+console.log("longectConces", longestConsec(strarr, k));
+
+const arr = [1, 2, 3, 4, 6, 7, 8];
+
+export function firstNonConsecutive(arr: number[]): null | number {
+  const result = arr.find(
+    (value, index) => index > 0 && value !== arr[index - 1] + 1
+  );
+  return result === undefined ? null : result;
+}
+console.log("longectConces", firstNonConsecutive(arr));
+
+export default function Selamla(str: string) {
+  return str
+    .split(" ")
+    .map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+}
+
+console.log("SELAMIN ALEYKÜMKE", Selamla("peki nedir benden isteğin uşağum"));
+
+export function get_age(age: string): number {
+  const findIndex = age.charAt(0);
+  const toInteger = parseInt(findIndex, 10);
+  return toInteger;
+}
+
+console.log("get_age", get_age("5 years old"));
+
+export const check = (a: (number | string)[], x: number | string): boolean => {
+  return a.some((v) => (v === x ? true : false));
+};
+
+console.log("get_age", check([80, 117, 115, 104, 45, 85, 112, 115], 45), true);
+
+export const centuryFromYear = (year: number): number => {
+  return Math.ceil(year / 100);
+};
+
+console.log("get_age", centuryFromYear(5));
+
+export function isPalindrome(x: string): boolean {
+  const x1 = Array(x).join("").toLowerCase();
+  const x2 = x.split("").reverse().join("").toLowerCase();
+  return x1 === x2 ? true : false;
+}
+
+
+export function remove(s: string): string {
+  return s.endsWith("!") ? s.slice(0, -1) : s;
+}
+
+console.log("IS PALINDROME?", remove("Hi!"));
+
+
+export function findUniq(arr: number[]): number {
+  const sortedArr = [...arr].sort((a, b) => a - b);
+  console.log("sorted arr", sortedArr);
+
+  return sortedArr[0] !== sortedArr[1]
+    ? sortedArr[0]
+    : sortedArr[sortedArr.length - 1];
+}
+
+console.log("findUniq", findUniq([1, 1, 1, 2, 1, 1]));
+
+export function solution(nums: number[]): number[] {
+  const copyNums = [...nums].sort((a, b) => a - b);
+  return copyNums ? copyNums : null || undefined || [];
+}
+console.log("findUniq", solution([1, 2, 10, 50, 5]));
+
+export function countSheep(num: number): string {
+  return Array.from(
+    { length: num },
+    (_, index) => `${index + 1} sheep...`
+  ).join("");
+}
+
+console.log("countsheep", countSheep(5));
+
+export function pipeFix(numbers: number[]): number[] {
+  if (numbers.length === 0) {
+    return [];
+  }
+  const start = numbers[0];
+  const end = numbers[numbers.length - 1];
+  return Array.from({ length: end - start + 1 }, (_, k) => k + start);
+}
+
+console.log("pipefix", pipeFix([-1, 4]));
+
+
+export function countSmileys(arr: string[]) {
+  const eyes = [":", ";"];
+  const noses = ["-", "~"];
+  const mouths = [")", "D"];
+
+  const isValidSmiley = (smiley: string) => {
+    if (smiley.length < 2 || smiley.length > 3) return false;
+
+    const hasValidEyes = eyes.includes(smiley[0]);
+    console.log("hasValidEyes", hasValidEyes);
+    const hasValidMouth = mouths.includes(smiley[smiley.length - 1]);
+    console.log("hasValidMouth", hasValidMouth);
+    const hasValidNose = smiley.length === 3 ? noses.includes(smiley[1]) : true;
+    console.log("hasValidNose", hasValidNose);
+
+    return hasValidEyes && hasValidMouth && hasValidNose;
+  };
+
+  console.log(
+    "arr.filter(isValidSmiley).length",
+    arr.filter(isValidSmiley).length
+  );
+
+  return arr.filter(isValidSmiley).length;
+}
+
+console.log("pipefix", countSmileys([":D", ":~)", ";~D", ":)"]));
+
+export function sumDigits(n: number): number {
+  const value = Math.abs(n);
+
+  const arr = value.toString().split("");
+
+  const sum = arr.reduce((acc, value) => {
+    return acc + parseInt(value);
+  }, 0);
+
+  return sum;
+}
+
+console.log("sumDigits", sumDigits(-32));
+
+export class Kata {
+  static highAndLow(numbers: string): string {
+    const numArray = numbers.split(" ").map(Number); // Convert to number array
+    const maxNum = Math.max(...numArray);
+    const minNum = Math.min(...numArray);
+
+    return `${maxNum} ${minNum}`;
+  }
+}
+
+Kata.highAndLow("1 2 3 4 5");
+
+console.log('Kata.highAndLow("1 2 3 4 5")', Kata.highAndLow("1 2 3 4 5"));
+
+export function toAlternatingCase(s: string): string {
+  return [...s]
+    .map((v) => (v === v.toLowerCase() ? v.toUpperCase() : v.toLowerCase()))
+    .join("");
+}
+
+console.log("toAlternatingCase", toAlternatingCase("HeLLo WoRLD"));
+
+export function solve(s: string) {
+  let kucuk = 0;
+  let buyuk = 0;
+  const array = [...s].map((v) => [v === v.toLowerCase() ? kucuk++ : buyuk++]);
+
+  if (kucuk >= buyuk) {
+    return s.toLowerCase();
+  } else if (buyuk > kucuk) {
+    return s.toUpperCase();
+  }
+
+  return array;
+}
+console.log("solve", solve("coDEE"));
+
+
+export function gooseFilter(birds: string[]): string[] {
+  const geese: string[] = [
+    "African",
+    "Roman Tufted",
+    "Toulouse",
+    "Pilgrim",
+    "Steinbacher",
+  ];
+
+  return birds.filter((bird) => !geese.includes(bird));
+}
+
+console.log(
+  "gooseFilter",
+  gooseFilter(["African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher"])
+);
+
+export function switchItUp(intNumber: number): string | undefined {
+  const arrayStr = {
+    0: "Zero",
+    1: "One",
+    2: "Two",
+    3: "Three",
+    4: "Four",
+    5: "Five",
+    6: "Six",
+    7: "Seven",
+    8: "Eight",
+    9: "Nine",
+  };
+
+  const keyss = Object.values(arrayStr);
+
+  return keyss.find((key) => key === keyss[intNumber]);
+}
+
+console.log("switchItUp", switchItUp(5));
+
+export function findDifference(
+  a: [number, number, number],
+  b: [number, number, number]
+): number {
+  const AA = a.reduce((acc, value) => acc * value, 1);
+  const BB = b.reduce((acc, value) => acc * value, 1);
+
+  return Math.abs(AA - BB);
+}
+
+console.log("find", findDifference([9, 7, 2], [5, 2, 2]));
+
+export const likes = (a: string[]): string => {
+  let copyArray = [...a];
+  let sayac = copyArray.length - 2;
+  if (copyArray.length === 0) {
+    return "no one likes this";
+  } else if (copyArray.length === 1) {
+    return `${copyArray[0]} likes this`;
+  } else if (copyArray.length === 2) {
+    return `${copyArray[0]} and ${copyArray[1]} like this`;
+  } else if (copyArray.length === 3) {
+    return `${copyArray[0]}, ${copyArray[1]} and ${copyArray[2]} likes this`;
+  } else {
+    return `${copyArray[0]}, ${copyArray[1]} and ${sayac} others like this`;
+  }
+};
+
+console.log(likes(["Jacob", "Alex"]));
+
+export function F(n: number): number {
+  if (n === 0) {
+    return 1;
+  }
+  return n - M(F(n - 1));
+}
+
+export function M(n: number): number {
+  if (n === 0) {
+    return 0;
+  }
+  return n - F(M(n - 1));
+}
+
+console.log("M", M(0));
+console.log("F", F(0));
+
+
+export const cycle = (n: number): number => {
+  if (n % 2 === 0 || n % 5 === 0) return -1;
+
+  let k = 1;
+  let mod = 10 % n;
+
+  while (mod !== 1) {
+    mod = (mod * 10) % n;
+    k++;
+  }
+
+  return k;
+};
+
+console.log("cycle", cycle(33));
+
+export function tribonacci(
+  [first, second, third]: [number, number, number],
+  n: number
+): number[] {
+  if (n === 0) {
+    return [];
+  }
+
+  const result = [...Array(n)].reduce((acc, _, i) => {
+    if (i < 3) {
+      acc.push([first, second, third][i]);
+      console.log("Push", acc.push([first, second, third][i]));
+    } else {
+      const sum = acc
+        .slice(i - 3, i)
+        .reduce((a: number, b: number) => a + b, 0);
+      acc.push(sum);
+    }
+    return acc;
+  }, []);
+
+  return result;
+}
+
+console.log("tribonacci", tribonacci([3, 2, 1], 10));
+
+
+function twoSum(nums: number[], target: number): number[] {
+  let map = new Map<number, number>();
+
+  for (let i = 0; i < nums.length; i++) {
+    let complement = target - nums[i];
+    if (map.has(complement)) {
+      return [map.get(complement)!, i];
+    }
+    map.set(nums[i], i);
+  }
+  return [];
+}
+
+console.log("twoSum", twoSum([2, 7, 11, 15], 9)); // Output: [0, 1]
+console.log("twoSum", twoSum([3, 2, 4], 6)); // Output: [1, 2]
+console.log("twoSum", twoSum([3, 3], 6)); // Output: [0, 1]
+
+
+----------------- NEW ACC -------------------
+export const check = (a: (number | string)[], x: number | string): boolean => {
+  const array = a.some((v) => x === v);
+  return array;
+};
+
+console.log("Result: ", check([66, 101], 66), true);
+
+function FirstFactorial(num: number): number {
+  if (num < 0) {
+    return -1;
+  } else if (num === 0 || num === 1) {
+    return 1;
+  } else {
+    return num * FirstFactorial(num - 1);
+  }
+}
+
+console.log("Result: ", FirstFactorial(5));
+
+export function toCsvText(array: number[][]): string {
+  console.log("SELAMIN ALEYKÜM", array.map((row) => row.join()).join("\n"));
+  return array.map((row) => row.join(",")).join("\n");
+}
+
+console.log(
+  "Result: ",
+  (toCsvText([
+    [0, 1, 2, 3, 45],
+    [10, 11, 12, 13, 14],
+    [20, 21, 22, 23, 24],
+    [30, 31, 32, 33, 34],
+  ]),
+  "0,1,2,3,45\n10,11,12,13,14\n20,21,22,23,24\n30,31,32,33,34")
+);
+
+export function doubleChar(str: string): string {
+  const array = Array.from(str)
+    .map((character) => character + character)
+    .join("");
+
+  console.log("array", array);
+
+  return array;
+}
+
+export function doubleChar(str: string): string {
+  const array = Array.from(str)
+    .map((character) => character.repeat(2))
+    .join("");
+
+  console.log("array", array);
+
+  return array;
+}
+
+console.log("doubleChar", doubleChar("selam!"));
+
+export function countPositivesSumNegatives(input: number[] | null) {
+  if (input === null || input.length === 0) {
+    return [];
+  }
+
+  const positiveCount = input.filter((num) => num > 0).length;
+  const negativeSum = input
+    .filter((num) => num < 0)
+    .reduce((acc, num) => acc + num, 0);
+
+  return [positiveCount, negativeSum];
+}
+
+console.log("countPositivesSumNegatives", countPositivesSumNegatives());
+
+export function htmlspecialchars(formData: string): string {
+  const replacements: { [key: string]: string } = {
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "&": "&amp;",
+  };
+
+  console.log("replacements", replacements);
+
+  return formData
+    .split("")
+    .map((char) => replacements[char] || char)
+    .join("");
+}
+
+console.log(
+  "mouthhtmlspecialcharsSize",
+  htmlspecialchars("<h2>Hello World</h2>")
+);
+
+export function between(a: number, b: number): number[] {
+  const length = Math.abs(b - a) + 1;
+  const start = Math.min(a, b);
+
+  const array = Array.from({ length }, (_, index) => start + index);
+
+  return array;
+}
+
+console.log("between", between(-2, 2), [-2, -1, 0, 1, 2]);
+
+export function cubeChecker(volume: number, side: number): boolean {
+  if (volume <= 0 || side <= 0) {
+    return false;
+  }
+
+  const expectedVolume = side ** 3;
+  return volume === expectedVolume;
+}
+
+export function betterThanAverage(
+  classPoints: number[],
+  yourPoints: number
+): boolean {
+  const allPoints = classPoints.concat([yourPoints]);
+
+  const total = allPoints.reduce((acc, curr) => acc + curr, 0);
+
+  const avarage = total / allPoints.length;
+
+  return yourPoints > avarage;
+}
+
+console.log("sa", betterThanAverage([12, 23, 34, 45, 56, 67, 78, 89, 90], 69));
+
+export function maskify(cc: string): string {
+  const array = Array.from(cc)
+    .fill("#", 0, cc.length - 4)
+    .join("");
+
+  if (cc.length > 4) {
+    return array;
+  }
+
+  return cc;
+}
+console.log("sa", maskify("4556364607935616"), "############5616");
+
+export class Serializable {
+  serialize(): string {
+    return JSON.stringify(this);
+  }
+
+  deserialize(source: string): void {
+    const properties = JSON.parse(source);
+    Object.assign(this, properties);
+  }
+}
+
+export function makeValley(arr: number[]): number[] {
+  const sortedArray = arr.sort((a, b) => b - a);
+
+  let leftWing: number[] = [];
+  let rightWing: number[] = [];
+
+  sortedArray.filter((v, i) =>
+    i % 2 === 0 ? leftWing.push(sortedArray[i]) : rightWing.push(sortedArray[i])
+  );
+
+  rightWing.sort((a, b) => a - b);
+
+  return leftWing.concat(rightWing);
+}
+
+console.log(
+  "makeValley",
+  makeValley([20, 18, 17, 13, 12, 12, 10, 9, 4, 2, 2, 1, 1]),
+  [20, 17, 12, 10, 4, 2, 1, 1, 2, 9, 12, 13, 18]
+);
+
+
+function convert(integer: number) {
+  if (integer < 0) {
+    integer = 0;
+  }
+
+  if (integer > 255) {
+    integer = 255;
+  }
+
+  const str = Number(integer).toString(16);
+  console.log("str", str);
+
+  return str.length == 1 ? "0" + str : str;
+}
+
+export function rgb(r: number, g: number, b: number): string {
+  return (convert(r) + convert(g) + convert(b)).toUpperCase();
+}
+
+console.log("rgb", rgb(173, 255, 47));
+console.log("RGB2", rgb(0, 0, -20));
+
+export function alphanumeric(string: string): boolean {
+  const isAlphanumeric = (char: string): boolean => {
+    const code = char.charCodeAt(0);
+    return (
+      (code >= 48 && code <= 57) ||
+      (code >= 65 && code <= 90) ||
+      (code >= 97 && code <= 122)
+    );
+  };
+
+  return string.length > 0 && string.split("").every(isAlphanumeric);
+}
+
+export function isAlphanumeric(string: string): boolean {
+  return string.length > 0 && string.split("").every(isAlphanumericChar);
+}
+
+function isAlphanumericChar(char: string): boolean {
+  const charCode = char.charCodeAt(0);
+  return (
+    (charCode >= 48 && charCode <= 57) ||
+    (charCode >= 65 && charCode <= 90) ||
+    (charCode >= 97 && charCode <= 122)
+  );
+}
+
+export const digitize = (n: number): number[] => {
+  return Array.from(n.toString()).reverse().map(Number);
+};
+
+console.log("digitize", (digitize(35231), [1, 3, 2, 5, 3]));
+
+
+export function validISBN10(isbn: string): boolean {
+  if (isbn.length !== 10) return false;
+
+  const digits = isbn.split("").map((char, index) => {
+    if (index === 9 && (char === "X" || char === "x")) return 10;
+    if (char < "0" || char > "9") return NaN;
+    return parseInt(char);
+  });
+
+  if (digits.some(isNaN)) return false;
+
+  const sum = digits.reduce(
+    (acc, current, index) => acc + current * (index + 1),
+    0
+  );
+  return sum % 11 === 0;
+}
+
+// export function validISBN10(isbn: string): boolean {
+//   if (isbn.length !== 10) return false;
+
+//   let sum = 0;
+
+//   for (let i = 0; i < 9; i++) {
+//     if (isbn[i] < "0" || isbn[i] > "9") return false;
+//     sum += (isbn.charCodeAt(i) - "0".charCodeAt(0)) * (i + 1);
+//   }
+
+//   let lastChar = isbn[9];
+//   if (lastChar >= "0" && lastChar <= "9") {
+//     sum += (lastChar.charCodeAt(0) - "0".charCodeAt(0)) * 10;
+//   } else if (lastChar === "X" || lastChar === "x") {
+//     sum += 10 * 10;
+//   } else {
+//     return false;
+//   }
+
+//   return sum % 11 === 0;
+// }
+
+console.log("validISBN10", validISBN10("1112223339"));
+
+export function swapAdjacentBits(n: number): number {
+  const binaryStr = n.toString(2).padStart(32, "0").split("");
+
+  const resultStr = binaryStr.reduce((acc, curr, index, arr) => {
+    if (index % 2 === 0) {
+      return acc;
+    } else {
+      return acc + curr + arr[index - 1];
+    }
+  }, "");
+
+  return parseInt(resultStr, 2);
+}
+
+console.log("swapAdjacentBits", swapAdjacentBits(74));
+
+export function hexStringToRGB(hexString: string): {
+  r: number;
+  g: number;
+  b: number;
+} {
+  const num = parseInt(hexString.slice(1), 16);
+  console.log(num);
+
+  const r = (num >> 16) & 255;
+  const g = (num >> 8) & 255;
+  const b = num & 255;
+
+  return { r, g, b };
+}
+
+console.log("hexStringToRGB", hexStringToRGB("#FF9933"));
+
+
+
+
+
+
+
+
+
