@@ -53,3 +53,21 @@ export function swapAdjacentBits(n: number): number {
 
   return parseInt(resultStr, 2);
 }
+
+export function smaller(nums: number[]): number[] {
+  return nums.map((current, index) => {
+    const smallerCount = nums
+      .slice(index + 1)
+      .filter((rightNum) => rightNum < current).length;
+
+    return smallerCount;
+  });
+}
+
+console.log("smallar", smaller([5, 4, 3, 2, 1]));
+
+export function circleOfNumbers(n: number, firstNumber: number) {
+  return (firstNumber + n / 2) % n;
+}
+
+console.log("circleOfNumbers", circleOfNumbers(10, 2));
