@@ -1,0 +1,1 @@
+/Users/batuhanberk/Desktop/Codes/try/codewars-solutions/rust-kata-solution/target/debug/rust-kata-solution: /Users/batuhanberk/Desktop/Codes/try/codewars-solutions/rust-kata-solution/src/exam.rs /Users/batuhanberk/Desktop/Codes/try/codewars-solutions/rust-kata-solution/src/main.rs

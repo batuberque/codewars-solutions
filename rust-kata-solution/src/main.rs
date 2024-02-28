@@ -67,6 +67,111 @@ fn find_missing_letter(chars: &[char]) -> char {
 
 struct Solution;
 
+struct MyHashMap {
+    map: Vec<Option<i32>>,
+}
+
+impl MyHashMap {
+    fn new() -> Self {
+        let map = vec![None; 10_000_000];
+        MyHashMap { map }
+    }
+
+    fn put(&mut self, key: i32, value: i32) {
+        self.map[key as usize] = Some(value);
+    }
+
+    fn get(&self, key: i32) -> i32 {
+        self.map[key as usize].unwrap_or(-1)
+    }
+
+    fn remove(&mut self, key: i32) {
+        self.map[key as usize] = None;
+    }
+}
+
+struct MyHashSet {
+    set: Vec<bool>,
+}
+
+impl MyHashSet {
+    fn new() -> Self {
+        let set = vec![false; 10_000_000];
+        MyHashSet { set }
+    }
+
+    fn add(&mut self, key: i32) {
+        self.set[key as usize] = true;
+    }
+
+    fn remove(&mut self, key: i32) {
+        self.set[key as usize] = false;
+    }
+
+    fn contains(&self, key: i32) -> bool {
+        self.set[key as usize]
+    }
+}
+
+struct MyCircularQueue {
+    capacity: usize,
+    data: Vec<i32>,
+    front: usize,
+    rear: usize,
+}
+
+impl MyCircularQueue {
+    fn new(k: i32) -> Self {
+        Self {
+            capacity: k as usize,
+            data: vec![-1; k as usize],
+            front: 0,
+            rear: 0,
+        }
+    }
+
+    fn en_queue(&mut self, value: i32) -> bool {
+        if self.is_full() {
+            return false;
+        }
+        self.data[self.rear] = value;
+        self.rear = (self.rear + 1) % self.capacity;
+        true
+    }
+
+    fn de_queue(&mut self) -> bool {
+        if self.is_empty() {
+            return false;
+        }
+        self.front = (self.front + 1) % self.capacity;
+        true
+    }
+
+    fn front(&self) -> i32 {
+        if self.is_empty() {
+            -1
+        } else {
+            self.data[self.front]
+        }
+    }
+
+    fn rear(&self) -> i32 {
+        if self.is_empty() {
+            -1
+        } else {
+            self.data[(self.rear + self.capacity - 1) % self.capacity]
+        }
+    }
+
+    fn is_empty(&self) -> bool {
+        self.front == self.rear
+    }
+
+    fn is_full(&self) -> bool {
+        (self.rear + 1) % self.capacity == self.front
+    }
+}
+
 impl Solution {
     // pub fn check_tree(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
     //     if let Some(node) = root {
@@ -641,6 +746,99 @@ impl Solution {
         }
         *s.iter().next().unwrap()
     }
+
+    // declerative
+    pub fn plus_one_s1(digits: Vec<i32>) -> Vec<i32> {
+        let str_values = digits
+            .into_iter()
+            .map(|i| i.to_string())
+            .collect::<String>();
+
+        let int_value = str_values.parse::<isize>().unwrap();
+
+        let total = (int_value + 1)
+            .to_string()
+            .chars()
+            .map(|c| c.to_digit(10).unwrap() as i32)
+            .collect::<Vec<i32>>();
+
+        total
+    }
+
+    pub fn plus_one(mut digits: Vec<i32>) -> Vec<i32> {
+        let mut index = digits.len() as isize - 1;
+
+        while index >= 0 {
+            if digits[index as usize] < 9 {
+                digits[index as usize] += 1;
+                return digits;
+            }
+            digits[index as usize] = 0;
+            index -= 1;
+        }
+
+        let mut result = vec![0; digits.len() + 1];
+        result[0] = 1;
+        result
+    }
+
+    pub fn find_diagonal_order(mat: Vec<Vec<i32>>) -> Vec<i32> {
+        let (m, n) = (mat.len(), mat[0].len());
+        let mut result = Vec::new();
+
+        for sum in 0..m + n - 1 {
+            if sum % 2 == 0 {
+                for i in (0..m).rev() {
+                    let j = sum - i;
+                    if j >= 0 && j < n {
+                        result.push(mat[i][j]);
+                    }
+                }
+            } else {
+                for j in (0..n).rev() {
+                    let i = sum - j;
+                    if i >= 0 && i < m {
+                        result.push(mat[i][j]);
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    pub fn contains_dublicate(nums: Vec<i32>) -> bool {
+        let mut sorted_nums = nums.clone();
+        sorted_nums.sort_unstable();
+        for i in 0..sorted_nums.len() - 1 {
+            if sorted_nums[i] == sorted_nums[i + 1] {
+                return true;
+            }
+        }
+        false
+    }
+
+    pub fn single_number(nums: Vec<i32>) -> i32 {
+        nums.iter().fold(0, |acc, &num| acc ^ num)
+    }
+
+    pub fn intersection(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+        let mut set: HashSet<_> = nums2.into_iter().collect();
+        let mut nums1 = nums1;
+
+        nums1.retain(|x| set.remove(x));
+        nums1
+    }
+
+    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        let mut map = std::collections::HashMap::new();
+        for (i, &num) in nums.iter().enumerate() {
+            if let Some(&j) = map.get(&(target - num)) {
+                return vec![j as i32, i as i32];
+            }
+            map.insert(num, i);
+        }
+        vec![]
+    }
 }
 
 fn main() {
@@ -673,6 +871,6 @@ fn main() {
 
     // println!("Toplam geçerli tam sayı çifti sayısı: {}", valid_pairs);
 
-    let try_something = Solution::parse_deadfish("iiisdoso");
+    let try_something = plus_one(vec![1, 2, 3]);
     println!("{:?}", try_something);
 }
