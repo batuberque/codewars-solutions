@@ -70,3 +70,50 @@ const loggerUnion = union([
 ]);
 
 // console.log("loggerUnion", loggerUnion);
+
+const objFilter = <T extends Record<string, any>, K extends keyof T>(
+  obj: T,
+  keys: K[]
+): Pick<T, K> => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => keys.includes(key as K))
+  ) as Pick<T, K>;
+};
+
+const startingObj = {
+  a: 1,
+  b: 2,
+  c: 3,
+  d: 4,
+};
+
+console.log(objFilter(startingObj, ["a", "b", "c", "d"]));
+
+const rating = (
+  arrOfFuncs: ((val: number) => boolean)[],
+  value: number
+): number => {
+  const trueCount = arrOfFuncs.reduce((acc, func) => {
+    return acc + (func(value) ? 1 : 0);
+  }, 0);
+  return (trueCount / arrOfFuncs.length) * 100;
+};
+
+const isEven = (n: number) => n % 2 === 0;
+const greaterThanFour = (n: number) => n > 4;
+const isSquare = (n: number) => Math.sqrt(n) % 1 === 0;
+const hasSix = (n: number) => n.toString().includes("6");
+const checks = [isEven, greaterThanFour, isSquare, hasSix];
+console.log(rating(checks, 64)); // should log: 100
+console.log(rating(checks, 66)); // should log: 75
+
+const pipe = (arrOfFuncs: ((val: any) => any)[], value: any): any => {
+  return arrOfFuncs.reduce((acc, func) => func(acc), value);
+};
+
+// Test
+const capitalize = (str: string) => str.toUpperCase();
+const addLowerCase = (str: string) => str + str.toLowerCase();
+const repeat = (str: string) => str + str;
+const capAddLowRepeat = [capitalize, addLowerCase, repeat];
+console.log(pipe(capAddLowRepeat, "cat")); // should log: 'CATcatCATcat'
