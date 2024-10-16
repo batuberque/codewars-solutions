@@ -71,3 +71,30 @@ export function circleOfNumbers(n: number, firstNumber: number) {
 }
 
 console.log("circleOfNumbers", circleOfNumbers(10, 2));
+
+export function findNextSquare(sq: number): number {
+  const square = Math.sqrt(sq);
+  const plusOne = square + 1;
+  const powPlusOne = Math.pow(plusOne, 2);
+
+  if (sq % square === 0) {
+    return powPlusOne;
+  } else return -1;
+}
+findNextSquare(121);
+
+console.log("log", findNextSquare(121));
+
+export function openOrSenior(data: number[][]): string[] {
+  return data.map((v) => (v[0] >= 55 && v[1] > 7 ? "Senior" : "Open"));
+}
+
+console.log(
+  "log",
+  openOrSenior([
+    [45, 12],
+    [55, 21],
+    [19, -2],
+    [104, 20],
+  ])
+);
